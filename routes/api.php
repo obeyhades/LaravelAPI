@@ -16,6 +16,7 @@ route::post('/chat',[ChatbotController::class, 'chat']);
 
 
 
+
 Route::post('/test', function (Request $request) {
     $data = $request->test;
 
