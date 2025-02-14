@@ -2,23 +2,21 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
-
-class ChatbotController extends Controller
+class ChatHistory extends Model
 {
-    public function chat(Request $request)
-    {
-        $response = Http::post('http://localhost:11434/api/generate', [
-            'model' => 'mistral',
-            'prompt' => $request->message,
-            'stream' => false
-        ]);
+    use HasFactory;
 
-        return response()->json($response->json());
+    protected $fillable = [
+        'user_id',
+        'session_id',
+        'user_message',
+        'bot_response'
+    ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 }
-
